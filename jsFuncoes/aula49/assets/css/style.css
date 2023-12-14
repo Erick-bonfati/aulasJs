@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+:root {
+  --primary-color: rgb(17, 86, 102);
+  --primary-color-darker: rgb(9, 48, 56);
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--primary-color);
+  font-family: 'Open sans', sans-serif;
+  font-size: 1.3em;
+  line-height: 1.5em;
+}
+
+.container {
+  max-width: 640px;
+  margin: 50px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+.calculadora {
+  /*WIDTH - Largura da tabela */
+  width: 400px;
+}
+
+.display {
+  /*fonte-size = tamanho da fonte */
+  font-size: 2em;
+  width: 100%;
+  /*text-align = alinhar tudo na... */
+  text-align: right;
+}
+
+.btn {
+  width: 100%;
+  /*HEIGHT - Altura dos botões */
+  height: 50px;
+  font-size: 1em;
+  /*border: none = Tira a borda dos botões */
+  border: none;
+  /*Cursor = coloca um tipo de cursor ao passar por cima dos botões*/
+  cursor: pointer;
+}
+
+/* :hover = quando passa com o mouse por cima ele troca a cor do botão */
+.btn:hover {
+  background: rgb(163, 162, 162) ;
+}
