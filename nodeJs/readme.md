@@ -1,1 +1,0 @@
-Neste seção vamos finalmente fazer o front-end se comunicar com o back-end
