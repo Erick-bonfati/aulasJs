@@ -1,0 +1,10 @@
+Quanto a nosso senha do mongoDB para fazer a conexão com o nosso node, nós vamos jogar essa senha em algum arquivo pessoal nosso, e não dentro
+do nosso repositório.
+
+O nome do pacote que vamos usar para salvar nossa senha fora do nosso arquivo vai ser:
+
+-> npm install dotenv
+
+e também precisamos instalar o 'mongoose', pois ele serve para fazer a conxeão com a base de dados e mais algumas coisas como tratas nossos dados.
+
+// e ambos acima vão ser dependencias do projeto e não do desenvolvimento

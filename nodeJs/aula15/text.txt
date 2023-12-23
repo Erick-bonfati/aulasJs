@@ -1,0 +1,6 @@
+Nesta aula vamos aprender a usar session, que serve para salvar seus dados no navegador, para sempre que você tiver que logar no site novamente
+o navegador te da a opção de usar seus dados antigos.
+
+E para instalar os recursos que vamos usar que é o Mongo, session e flash fazemos assim:
+
+npm i express-session connect-mongo connect-flash
