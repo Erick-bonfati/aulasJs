@@ -1,0 +1,38 @@
+<%- include('includes/head') %>
+
+    <section class="container">
+
+        <h1>
+            
+        <!-- Para usar o ejs usando a tag assim: <%= %>, este nós usando quando não queremos escapar qualquer caractere, # = comenta -->
+        <!-- <%#= titulo  %> <br> Aqui ele exibe o objeto: titulo que criamos no nosso homeController -->
+
+        <!-- Temos a tag: <%- %> = que ele identifica quando estamos usando uma tag html e já faz as modificações pra gente-->
+        <!-- <%#- titulo %> <br> -->
+
+        <!-- Aqui estamos usando javascript normal, mas com a adição do ejs junto, temos que fazer exatamente como fiz em baixo, abre e fecha o ejs sempre -->
+        <%# if(typeof titulo !== 'undefined') { %>
+            <%#= titulo %>
+        <%# } else { %>
+            <!-- O título não foi enviado -->
+        <%# } %>
+
+        <% numeros.forEach(num => { %>
+            <%= num %> <br>
+        <% }); %>
+
+       <%= umaVariavelLocal %> <!-- Estamos pegando o valor do middleWare e jogando aqui-->
+
+        </h1>
+
+
+        <form action="/" method="POST">
+            <label>Cliente</label>
+            <input type="text" name="cliente">
+            <button>Submit</button>
+        </form>
+
+
+    </section>
+
+<%- include('includes/footer') %>
