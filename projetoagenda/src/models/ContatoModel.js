@@ -1,8 +1,13 @@
 const mongoose = require('mongoose')
+const validator = require('validator')
 
 const ContatoSchema = new mongoose.Schema({ 
-    titulo: {type: String, required: true},
-    descricao: String
+    nome: {type: String, required: true},
+    sobrenome: {type: String, required: false, default: ''},
+    email: {type: String, required: false, default: ''},
+    telefone: {type: String, required: false, default: ''},
+    criadoEm: {type: Date, default: Date.now}
+
 })
 
 
@@ -14,21 +19,27 @@ function Contato(body) {
     this.contato = null;
 }
 
-Contato.prototype.register = function() {
+// Função assincrona para criar algo no banco de dados
+Contato.prototype.register = async function() {
     this.valida();
+
+    if(this.errors.length > 0) return;
+    this.contato = await ContatoModel.create(this.body);
 }
 
-Contato.prototype.valida() = function() {
+Contato.prototype.valida = function() {
     this.cleanUp(); 
 
-    if(!validator.isEmail(this.body.email)) this.errors.push('E-mail inválido')
-
-    if(this.body.password.length < 3 || this.body.password.length > 50) {
-        this.errors.push('A senha precisa ter entre 3 e 50 caracteres.')
+    if(this.body.email && !validator.isEmail(this.body.email)) this.errors.push('E-mail inválido') // aqui a condição fica, se tiver alguma informação
+    // no email você valida, senão passa para o próximo if...
+    
+    if(!this.body.nome) this.errors.push('Nome é um campo obrigatório') // Caso o usuario não digite nenhum nome...
+    if(!this.body.email && !this.body.telefone){ 
+        this.errors.push('Pelo menos um contato precisa ser enviado: e-mail ou telefone')
     }
 }
 
-Contato.prototype.cleanUp() = function() {
+Contato.prototype.cleanUp = function() {
     for(const key in this.body) { 
       if(typeof this.body[key] !== 'string') {
         this.body[key] = '';
@@ -36,8 +47,18 @@ Contato.prototype.cleanUp() = function() {
     }
 
     this.body = {
+        nome: this.body.nome,
+        sobrenome: this.body.sobrenome,
         email: this.body.email,
-        password: this.body.password,
+        telefone: this.body.telefone
     };
 }
+
+Contato.buscaPorId = async function(id) {
+    if(typeof id !== 'string') return;
+    const user = await ContatoModel.findById(id); // ou isso vai me retornar um 'USUARIO' ou vai retornar 'NULL'
+    return user;
+}
+
+
 module.exports = Contato;
