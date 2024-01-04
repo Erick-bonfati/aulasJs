@@ -13,7 +13,14 @@
 
                     <%- include('includes/messages') %>
 
-                        <form action="/contato/register" method="POST">
+                        <!-- Aqui criamos uma condição que caso meu contato existir, ele vai postar para outro lugar-->
+                        <% if(contato._id) { %>
+                        <form action="/contato/edit/<%= contato._id %>" method="POST">
+                        <% } else { %>
+
+                        <% } %>
+
+                            <form action="/contato/register" method="POST">
                             <input type="hidden" name="_csrf" value=<%=csrfToken %>>
 
                             <div class="form-group">
