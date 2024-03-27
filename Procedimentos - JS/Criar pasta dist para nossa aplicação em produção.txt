@@ -1,0 +1,16 @@
+Para criar um arquivo de distruição da nossa aplicação, para usar em produção
+
+Se estiver usando um sucrase normal, não podmeos aplicar assim no produção, precisamos redirecionar nossos
+arquivos para um pasta dist, que vai fazer a comunicação com nosso servidor em produção
+
+Primeiro de tudo vamos no "package.json"
+
+Depois seguimos estes passos:
+
+SCRIPTS: 
+
+Para criar uma pasta dist importando nossos arquivos: "build": "sucrase ./src -d ./dist --transforms imports"
+
+Para iniciar nossa aplicação pelo dist: "start": "node dist/server.js"
+
+Feito tudo, movemos nosso 'server.js' e 'app.js' para dentro da pasta src

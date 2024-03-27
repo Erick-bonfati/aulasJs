@@ -1,0 +1,17 @@
+CASCADE
+RESTRICT
+NO ACTION
+SET NULL
+
+ON DELETE CASCADE - se o registro pai for deletado, o filho também será.
+
+ON UPDATE CASCADE - se a primary key do registro pai for alterada, isso será refletido no registro filho.
+
+RESTRICT - significa que qualquer tentatvia de apagar ou atualizar o registro pai vai falhar lançando um erro.
+
+NO ACTION - Sem ações. Significa que o MySql não vai realizar nenhuma ação por você. Porém, você não podera
+apagar ou atualizar a primary key do registro pai, nem conseguirá alterar o foreihn key do registro filho
+caso a primary key do registro pai ainda não tiver sido atualizada. 
+
+SET NULL - Se você apagar ou atualizar a primary key do registro pai, a foreign key do registro filho será
+configurada para NULL.

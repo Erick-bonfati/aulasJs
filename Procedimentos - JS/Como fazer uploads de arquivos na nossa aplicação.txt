@@ -1,0 +1,4 @@
+Como instalar um pacote para fazer upload de arquivos na nossa aplicação
+
+
+Primeiro abrimos o terminal na aplicação e usamos este comando: npm i multer

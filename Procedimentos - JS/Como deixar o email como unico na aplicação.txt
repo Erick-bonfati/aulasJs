@@ -1,0 +1,7 @@
+Como deixar a criação de email unico para cada aluno ou pessoa, o email não pode se repetir na base de dados
+
+no terminal da nossa aplicação usamos este comando: npx sequelize migration:create --name=mudar-email-aluno-unique
+
+isso para quando já tivermos alguma informação de email na nossa aplicação
+
+e depois de editar a migration como queremos, voltamos no terminal e usamos: npx sequelize db:migrate

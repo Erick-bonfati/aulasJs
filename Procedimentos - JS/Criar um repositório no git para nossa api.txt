@@ -1,0 +1,98 @@
+Criar um repositório no git para nossa api
+
+Acessar no pasta da api_rest e seguir estes passos:
+
+GIT BASH NA PASTA:
+
+git init
+
+git add .
+
+git commit -m "add archives"
+
+eval $(ssh-agent)
+
+ssh-add ~/.ssh/id_ed25519
+
+ssh 35.247.194.53 | (ip do servidor)
+
+Depois de acessar o servidor, vamos criar um repositório para a api
+
+mkdir api
+
+mkdir repo-api
+
+Para configurar o repo:
+
+cd repo-api = acessar o repo
+
+git init --bare = iniciar o repo
+
+cd .. = sair do repo
+
+Adicionar o nosso "repo-api" na pasta do projeto "api"
+
+cd api
+
+git init 
+
+git config user.name "Erick-bonfati"
+
+git config user.email "erickbonfati39@gmail.com"
+
+git commit -am "Initial"
+
+git remote add origin /home/erick/repo-api
+
+Depois dentro do terminal da nossa pasta, jogamos estes comandos:
+
+>git remote add origin 35.247.194.53:repo-api
+
+git push origin master -u
+
+git push
+
+Depois disso, voltar na pasta do git bash, no servidor e entrar no 'cp api'
+
+Agora vamos baixar as coisas no servidor do repositorio para a pasta do projeto
+
+git pull origin master
+
+mkdir uploads
+
+cd uploads/
+
+mkdir images = Para adicionar os arquivos de uploads e as imagens da nossa api
+
+Agora vamos adicionar nosso .env no repositório
+
+nano .env
+
+Copiar tudo do nosso arquivos .env e colar dentro do nano, salvar e fechar
+
+depois fazer um: 'npm i' e 'npm start' para ver se tudo funcionou
+
+pm2 start /home/erick/api/dist/server.js --name api
+
+pm2 ls
+
+curl http://localhost:3001
+
+Se não der nennhum erro, quer dizer que nosso servidor está comunicando perfeitamente com nossa api
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

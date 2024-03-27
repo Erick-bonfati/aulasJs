@@ -1,0 +1,11 @@
+Colocar seeds na nossa api:
+
+Dentro do terminal da nossa pasta:
+
+Para gerar o seed na pasta: npx sequelize seed:generate --name criar-usuarios
+
+Depois de fazer as configurações de usuarios, usamos: npx sequelize db:seed:all
+
+Isso para adicionar as informações no banco de dados
+
+Feito isso podemos adicionar pelos seeds, quantos usuários quisermos

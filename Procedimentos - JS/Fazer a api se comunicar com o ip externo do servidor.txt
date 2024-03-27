@@ -1,0 +1,36 @@
+Fazer a api se comunicar com o ip do servidor:
+
+primeiro vamos nas regras de firewall no google cloud e adicionamos uma regra com ipv4, aceitando todos ips:
+0.0.0.0/0
+
+e colocamos na porta 81
+
+salvar e fechar
+
+depois vamos no git bash do nosso server:
+
+e seguimos este passo a passo:
+
+cd /etc/nginx/sites-enabled/
+
+ld
+
+sudo cp 35.247.194.53 (nome_copia_arquivo)
+
+sudo nano (nome_copia_arquivo)
+
+trocar as portas que estão como 80, para 81
+
+e o localhost:3000 para 3001
+
+substituir os nomes para o nome que colocamos no arquivo
+
+salvar e fechar
+
+sudo systemctl stop nginx
+
+sudo systemctl start nginx
+
+depois é só acessar nosso ip e testar: 35.247.194.53:81
+
+Se o ip funcionar deu tudo certo

@@ -1,0 +1,25 @@
+Passo a passo para fazer alterações e aplicar no servidor: 
+
+fazer a modificação que quiser
+
+abrir o terminal e digitar: 
+
+npm run build
+
+git add .
+
+git commit -m "add archives"
+
+git push
+
+entrar no server:
+
+cd api
+
+git pull origin master
+
+git push origin master -u
+
+git pull
+
+pm2 restart api

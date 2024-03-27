@@ -1,0 +1,11 @@
+Configurar tamanho da foto no servidor, para nossa aplicação:
+
+Entrar no nosso servidor: 
+
+sudo nano /etc/nginx/nginx.conf
+
+Dentro do http: client_max_body_size 10M;
+
+Salvar e fechar
+
+sudo systemctl restart nginx

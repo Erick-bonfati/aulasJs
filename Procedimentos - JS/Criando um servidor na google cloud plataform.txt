@@ -1,0 +1,230 @@
+Criar um servidor dentro da rede do google:
+
+
+Console google cloud: 
+
+Menu de navegação, 'Compute Engine', "Instâncias de VM"
+
+
+Criar nova instância: nome-servidor, região: são paulo,  uso geral (N1), tipo de maquina (n1-standard)
+
+Disco de inicialização: ubuntu, ssd
+
+Firewall: Permitir: HTTP e HTTPS
+
+CRIAR
+
+//
+
+Agora vamos reservar o ip externo da nossa maquina como estático, para ele não ficar mudando toda vez que reiniciamos o servidor
+
+No nome do servidor vai nos três pontinhos, mais detalhes de rede, Endereços IP, e no ip externo, vai nos três pontinhos e deixar como estático.
+
+
+//
+
+Criando uma chave ssh no computador para acessar o servidor no meu computador: Este é um comando que vamos precisar fazer toda vez que iniciar ou reiniciar o computador
+
+
+No terminal do git bash
+
+
+: ssh-keygen
+
+: enter
+
+: senha, a minha é (bonfati13)
+
+: repetir senha
+
+Agora para iniciar o ssh(no windows)
+
+utilizamos o comando: eval $(ssh-agent)
+
+Se aparecer uma saída, deu tudo certo
+
+Depois vamos adicionar nossa chave ssh
+
+: ssh-add ~/.ssh/(nome chave)
+
+//
+
+Agora vamos abrir nossa pasta do .ssh para ver o que tem dentro:
+
+start ~/.ssh
+
+Após abri-lá, entramos no id_pub da pasta, copiamos o conteudo e voltamos no servidor do google cloud
+
+lá entramos em 'Compute engine', metadados, e 'Chaves SSH'
+
+Depois em 'Adicionar chave SSH', copie e cole nossa chave id_pub e salve
+
+Agora nosso usuário já pode ter acesso ao nosso servidor
+
+//
+
+E agora para acessar o servidor: 
+
+Instancias de VM, copie o ip do servidor externo
+
+Volte no git bash e coloque o seguinte comando: ssh (ip externo), depois só confirmamos que é confiavel e pronto, estamos dentro do servidor do google, se o usuario do windows tiver (ESPAÇOS) ele vai dar acesso negado!
+
+
+//
+
+Dentro do nosso servidor no git bash, vamos fazer estes comandos:
+
+: sudo apt update
+
+: sudo apt upgrade
+
+// Feito isso pronto, depois só usar exit para sair
+
+Agora um passo a passo rápido para quando reiniciarmos o computador:
+
+eval $(ssh-agent)
+
+ssh-add ~/.ssh/id_ed25519
+
+ssh 35.247.194.53 (ip servidor)
+
+
+// Depois de commitar nosso repositorio no git, nós abrimos outra aba no git bash e iniciamos o servidor
+
+ls = para ver os repositórios
+
+mkdir (nome-rep) = para criar um repositório
+
+cd (nome-rep) = para acessar o repositório dentro do servidor
+
+dentro do repositório no servidor, nós vamos iniciar um git = (git init --bare), depois saimos com 'cd'
+
+
+agora vamos entrar no repositório 'agenda': cd agenda, git init, git remote add agenda /home/(nome-usuario)/repo-agenda(nome repo)
+
+// Feito isso voltar no nosso git bash fora do servidor, e usamos este comando: git remote add agenda 35.247.194.53:repo-agenda ( nome-repo, ip-server, nome-repo(caminho) )
+
+e depois usamos: git push agenda(nome-repo) main ou master = 'git push agenda main'
+
+// Pronto, agora voltamos para o git do servidor
+
+// Entramos no repositório que queremos (agenda) e usamos este comando: git pull agenda main = (nome-repo, branch atual), e depois só da um 'ls' para ver se tudo foi adicionado corretamente
+
+
+// E agora sempre que fizermos alguma alteração, vamos fazer assim:
+
+: git add .
+
+: git commit -am "A mensagem que eu quero adicionar"
+
+: git push agenda main
+
+Todas essas modificações que fizemos vão ficar paradas no nosso (repo-agenda) precisamos passar ela para o repo (agenda), e para isso fazemos:
+
+: cd agenda/
+
+: git pull agendas main
+
+//
+
+// Agora vamos instalar o Node no servidor, primeiro abrimos o servidor e installamos tudo que passei abaixo
+
+
+sudo apt install curl -y
+
+curl -sL https://deb.nodesource.com/setup_20.x | sudo bash -
+
+sudo apt install nodejs -y
+
+// 
+
+Agora vamos entrar na nossa agenda e instalar o npm: cd agenda/ , 'npm i'
+
+Antes de começar vamos criar nosso arquivo .env no repo agenda: cd agenda/, nano .env, (copiar nosso env e colar dentro do git bash), CTRL + O(salvar),
+ENTER(SALVAR), CTRL + X, exit e 'Y' (Salvar modificações).
+
+
+Também vamos instalar o Pm2(Gerenciador global) = ele que vai gerenciar nossa aplicação e outras aplicações caso a gente tenha mais de uma aplicação no mesmo servidor
+
+
+: sudo npm i -g pm2
+
+Agora vamos passar para o 'pm2' qual o nosso ponto de entrada da nossa aplicação: pm2 start /home/erick/agenda/server.js
+
+Para conseguir ver nossa lista de aplicações usamos: 'pm2 list'
+
+Para excluir uma aplicação indesejada: pm2 delete (ip aplicação)
+
+// pm2 stop (Nome ap) = parar aplicação
+
+// pm2 start (Nome ap) = iniciar aplicação
+
+Agora vamos fazer com que sempre que iniciarmos o servidor, ele também inicie a aplicação: pm2 startup
+
+// Agora vamos permitir no mongoDB com que nosso ip funcione no banco de dados, para isso vamos no mongoDB, Network Acess, 'Add ip address' : colar ip do nosso servidor (35.247.194.53)
+
+Depois disso é só iniciar nossa aplicaçaõ: curl http://localhost:3000, passamos a porta que nosso servidor está hospedado
+
+
+
+
+// Agora vamos usar um proxy reservo - que serve para fazer a conexão com o cliente e com o servidor
+
+Baixando o nginx: sudo apt install nginx
+
+Ver se o nginx está funcionando: sudo systemctl status nginx
+
+Copiamos todo conteúdo da pasta nginx-HTTP, só trocando os nomes que estão como: curso.otavio... para nosso link do servidor: 35.247.194.53
+
+
+Voltamos no nosso servidor no GIT BASH e colocamos este comando: sudo nano /etc/nginx/sites-enabled/(nome do seu dominio ou ip do servidor)
+
+Agora acessamos nosso nginx: cd /etc/nginx/sites-enabled/
+
+Para apagar o default do nginx: sudo rm default
+
+E para testar se tudo está funcionando: sudo nginx -t
+
+Se estiver tudo ok use este comando: sudo systemctl restart nginx
+
+
+// PRONTO, A PARTIR DAQUI O SERVIDOR COM CONEXÃO HTTP JÁ ESTA FUNCIONAL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
