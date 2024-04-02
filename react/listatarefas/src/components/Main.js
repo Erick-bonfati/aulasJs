@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
 //Form
+import Form from "./Form";
 
-import { FaPlus } from "react-icons/fa"; // Importando um icone de uma biblioteca do react
 import "./Main.css";
 
-//Tarefas
-import { FaEdit, FaWindowClose } from "react-icons/fa";
+// Tarefas
+import Tarefas from "./Tarefas";
 
 //Componentes que são funções normais, eles retornam um 'jsx', e os componentes que são 'classes' eles precisam do método 'render'
 //para renderizar alguma coisa na tela
@@ -18,6 +18,26 @@ export default class Main extends Component {
     index: -1, // se este indice for diferente de -1, quer dizer que estamos editando alguma coisa do nosso array
   };
 
+  // O componente didMount, salva uma vez que o componente for montado
+  componentDidMount() {
+    const tarefas = JSON.parse(localStorage.getItem("tarefas")); // salvar o item tarefas, do nosso localStorage
+
+    if (!tarefas) return; // checamos se existem tarefas
+
+    this.setState({ tarefas }); // e setamos um estado de tarefas para salvar os componentes
+  }
+
+  // Este componente pode ser utilizado para salvar as informações no localStorage da linguagem
+  // Pegamos as propriedades anteriores e o estado anterior
+  componentDidUpdate(prevProps, prevState) {
+    const { tarefas } = this.state;
+
+    if (tarefas === prevState.tarefas) return; // Se as tarefas forem iguais ao estado anterior, não fazemos nada
+
+    // E para salvar nossas tarefas no localStorage
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }
+
   //A cada letra digitada no input, o nosso método vai ser chamado e ele vai
   //precisar atualizar nossa variavel de 'state', e fazemos isso com uma arrowFunction
   handleChange = (e) => {
@@ -26,7 +46,7 @@ export default class Main extends Component {
     });
   };
 
-  // Metodo para editar algo da nossa lista de tarefas
+  // Funcão para editar algo da nossa lista de tarefas
   handleEdit = (e, index) => {
     const { tarefas } = this.state;
     this.setState({
@@ -36,7 +56,7 @@ export default class Main extends Component {
     });
   };
 
-  // Metodo para excluir algo da nossa lista de tarefas
+  // Funcão para excluir algo da nossa lista de tarefas
   handleDelete = (e, index) => {
     const { tarefas } = this.state;
     const novasTarefas = [...tarefas];
@@ -92,36 +112,17 @@ export default class Main extends Component {
       <div className="main">
         <h1>Lista de tarefas</h1>
 
-        {/*Neste onSubmit, quando clicarmos ele vai executar o método dentro dele*/}
-        <form onSubmit={this.handleSubmit} action="#" className="form">
-          {/*Neste input, onChange, nós capturarmos tudo que é digitado e para para uma novaTarefa*/}
-          <input onChange={this.handleChange} type="text" value={novaTarefa} />
-          <button type="submit">
-            <FaPlus />
-          </button>
-        </form>
+        <Form
+          handleSubmit={this.handleSubmit}
+          handleChange={this.handleChange}
+          novaTarefa={novaTarefa}
+        />
 
-        <ul className="tarefas">
-          {/*Nosso método map, itera sobre cada tarefa e cada indice, passando um por um */}
-          {tarefas.map((tarefa, index) => (
-            <li key={tarefa}>
-              {/*Nossa key, serve para atribuir uma chave para cada elemente(indice) que estamos passando */}
-              {tarefa}
-              <span>
-                {/*No onClick, também executa um método quando clicamos nele, aqui passamos uma
-                  arrow function para receber nosso método e capturar o index do que estamos clicando */}
-                <FaEdit
-                  onClick={(e) => this.handleEdit(e, index)}
-                  className="edit"
-                />
-                <FaWindowClose
-                  onClick={(e) => this.handleDelete(e, index)}
-                  className="delete"
-                />
-              </span>
-            </li>
-          ))}
-        </ul>
+        <Tarefas
+          handleDelete={this.handleDelete}
+          handleEdit={this.handleEdit}
+          tarefas={tarefas}
+        />
       </div>
     );
   }
