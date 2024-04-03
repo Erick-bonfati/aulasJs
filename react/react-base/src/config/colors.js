@@ -1,6 +1,6 @@
 // Aqui vai ficar todas as cores que vamos usar na nossa aplicação
 
-export const primaryColor = '#C30737';
+export const primaryColor = '#C3073F';
 export const primaryDarkColor = '#1A1A1D';
 
 export const successColor = '#0197F6';
