@@ -14,7 +14,7 @@ export default function Login() {
         <small>Oie</small>
       </Title>
 
-      <Paragrafo>Lortem asdapoghpa aopsi djapo poia</Paragrafo>
+      <Paragrafo>Ola meu nome é Jaelson</Paragrafo>
       <button type="button">Enviar</button>
     </Container>
   );
