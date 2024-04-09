@@ -11,11 +11,11 @@ export default function Login() {
       isRed={false} */}
       <Title>
         Login
-        <small>Oie</small>
+        <small>status</small>
       </Title>
 
-      <Paragrafo>Ola meu nome é Jaelson</Paragrafo>
-      <button type="button">Enviar</button>
+      <Paragrafo>This is my test about the server</Paragrafo>
+      <button type="button">Send</button>
     </Container>
   );
 }
