@@ -43,7 +43,7 @@ const p1 = new Produto('Camiseta', 50);
 
 // p1.desconto(100); // Neste caso vai ser 100% de desconto
 
-p1.aumento(100); // Aqui vai dar 50% de aumento
+p1.aumento(100); // Aqui vai dar 100% de aumento
 
 console.log(p1);
 

@@ -12,6 +12,8 @@ console.log(nomes);
 
 const removidos = nomes.splice(-2, Number.MAX_VALUE); // Ele começa do -2 e remove até o final do elemento 'MAX_VALUE' ele pega o maior valor de JS
 
+console.log(removidos);
+
 //Shift = remove o primeiro
 //const removidos = nomes.splice(0, 1); // começando do zero remove um indice
 

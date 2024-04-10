@@ -22,6 +22,7 @@ function soma(x = 1, y = 1) {
     //Sempre que o javascript encontrar o RETURN ele vai parar todos os processos da função, toda função se finaliza no return
 }
 
+console.log(soma());
 console.log(soma(2, 2)); // atribuimos uma função com dois valores, transformamos em numero e fizemos a soma dentro da função
 console.log(soma(3, 1));
 console.log(soma(5, 10));

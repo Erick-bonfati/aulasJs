@@ -11,7 +11,7 @@ function rand(min, max) {
 
 // // função que vai demorar um pouco para executar
 // function esperaAi(msg, tempo, cb) {
-//     setTimeout(() => {
+//     setTimeout(() => { 
 //         console.log(msg);
 //         if(cb) cb();
 //     }, tempo);
